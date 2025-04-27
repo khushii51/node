@@ -21,7 +21,7 @@ export const createUser = async(req, res) => {
         });
         const token = jwt.sign(
             {id: user._id},
-             process.env.JWT_SECRET,
+             process.env.JWT_SECRET_KEY,
              { expiresIn: process.env.JWT_EXPIRES });
        return res.status(201).json({ accessToken: token});
 
@@ -55,7 +55,7 @@ export const getUser= async(req, res) =>{
        try{
         const user = await User.findById(user_id).select("-password");
         if(!user) {
-            retuen.res.status(404).json({
+            return res.status(404).json({
                 message:'User Not Found!'
             });
         }
